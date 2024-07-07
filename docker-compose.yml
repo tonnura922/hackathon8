@@ -11,6 +11,7 @@ services:
       - ./backend:/backend
     depends_on:
       - mysql
+    privileged: true
 
   mysql:
     image: mysql:latest
@@ -24,17 +25,18 @@ services:
       MYSQL_PASSWORD: django
     volumes:
       - ./mysql:/var/lib/mysql
+    privileged: true
 
   # front:
-  #   build:
-  #     context: ./front/docker
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./front:/front
-  #   command: sh -c "cd /front && yarn start"
-  #   container_name: front
+  # build:
+  # context: ./front/docker
+  # dockerfile: Dockerfile
+  # ports:
+  # - "3000:3000"
+  # volumes:
+  # - ./front:/front
+  # command: sh -c "cd /front && yarn start"
+  # container_name: front
   nginx:
     image: nginx:latest
     container_name: nginx
@@ -44,3 +46,4 @@ services:
       - ./backend/nginx:/etc/nginx/conf.d
     depends_on:
       - backend
+
