@@ -17,3 +17,11 @@ python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
 # http://localhost:8000/ でブラウザに表示される
 ```
+
+frontコンテナ
+```
+docker-compose run front bash
+npx create-react-app chickteckapp
+cd /front/chickteckapp
+npm start
+```

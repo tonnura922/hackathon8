@@ -27,16 +27,15 @@ services:
       - ./mysql:/var/lib/mysql
     privileged: true
 
-  # front:
-  # build:
-  # context: ./front/docker
-  # dockerfile: Dockerfile
-  # ports:
-  # - "3000:3000"
-  # volumes:
-  # - ./front:/front
-  # command: sh -c "cd /front && yarn start"
-  # container_name: front
+  front:
+    build:
+      context: ./front/docker
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front:/front
+    container_name: front
   nginx:
     image: nginx:latest
     container_name: nginx
