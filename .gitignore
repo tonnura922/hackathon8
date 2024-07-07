@@ -4,3 +4,5 @@ mysql/*
 backend/chickteckproject/__pycache__
 backend/chickteckapp/__pycache__
 backend/chickteckapp/migrations/__pycache__
+
+front/chickteckapp/node_modules
