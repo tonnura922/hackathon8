@@ -1,0 +1,6 @@
+.env
+
+mysql/*
+backend/chickteckproject/__pycache__
+backend/chickteckapp/__pycache__
+backend/chickteckapp/migrations/__pycache__
