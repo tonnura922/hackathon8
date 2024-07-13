@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import homefunc,signupfunc, loginfunc, logoutfunc
+from .views import homefunc,signupfunc, loginfunc, logoutfunc, chat_view
 
 
 urlpatterns = [
@@ -23,4 +23,5 @@ urlpatterns = [
      path('signup/', signupfunc, name='signup'),
      path('login/', loginfunc, name='login'),
      path('logout/', logoutfunc, name='logout'),
+     path("<int:user_id>/", chat_view, name="chat"),
 ]
