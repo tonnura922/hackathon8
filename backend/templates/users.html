@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profiles</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // 絞り込みボタンがクリックされた時の処理
+            $("#button").click(function() {
+                var speakLang = $("#speak_lang").val();
+                var itLang = $("#it_lang").val();
+                
+                // テーブルの各行をチェックして絞り込み
+                $("#data tbody tr").each(function() {
+                    var rowSpeakLang = $(this).find(".speak-lang").text();
+                    var rowItLang = $(this).find(".it-lang").text();
+
+                    if ((speakLang == '' || rowSpeakLang == speakLang) && (itLang == '' || rowItLang == itLang)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            // すべて表示ボタンがクリックされた時の処理
+            $("#button2").click(function() {
+                $("#data tbody tr").show();
+            });
+        });
+    </script>
+</head>
+<body>
+<!-- 検索用プルダウンフォームを、絞り込みたいテーブルより前に設置します -->
+<div class="search-area">
+  <form method="get" action="">
+    <select id="speak_lang" name="">
+      <option value="">話す言語を選んでください</option>
+      <option value="Japanese">日本語</option>
+      <option value="English">英語</option>
+      <option value="Chinese">中国語</option>
+    </select>
+    <select id="it_lang" name="">
+      <option value="">プログラミング言語を選んでください</option>
+      <option value="Python">Python</option>
+      <option value="C">C</option>
+      <option value="C++">C++</option>
+      <option value="C#">C#</option>
+      <option value="JavaScript">JavaScript</option>
+      <option value="Java">Java</option>
+    </select>
+    <input type="button" value="絞り込む" id="button">
+    <input type="button" value="すべて表示" id="button2">
+  </form>
+</div>
+
+<table id="data" border="0" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Bio</th>
+            <th>Age</th>
+            <th>Speak Languages</th>
+            <th>IT Languages</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            {% if user.profile %}
+            <td class="bio">{{ user.profile.bio }}</td>
+            <td class="age">{{ user.profile.age }}</td>
+            <td class="speak-lang">{{ user.profile.get_speak_lang_display }}</td>
+            <td class="it-lang">{{ user.profile.get_it_lang_display }}</td>
+            {% else %}
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User 
+from .models import UserProfile
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
@@ -9,6 +10,13 @@ from .forms import ChatForm
 # Create your views here.
 def homefunc(request):
     return render(request,'home.html',{})
+
+def usersfunc(request):
+    users = User.objects.all()
+    profile = UserProfile.objects.all()
+    # for i in profile:
+    #     print(i.bio)
+    return render(request,'users.html',{'users':users,'profile':profile})
 
 def signupfunc(request):
         if request.method=='POST':
@@ -33,7 +41,8 @@ def loginfunc(request):
     pass
 
 def logoutfunc(request):
-    pass
+        logout(request)
+        return redirect('home')
 
 @login_required
 def chat_view(request, user_id=None):
