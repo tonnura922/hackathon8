@@ -37,4 +37,5 @@ def loginfunc(request):
     pass
 
 def logoutfunc(request):
-    pass
+    logout(request)
+    return redirect('home')
