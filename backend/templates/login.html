@@ -1,0 +1,34 @@
+{% if user.is_authenticated %}
+<h1>loginしてます</h1>
+{% else %}
+        <h1>loginできてません</h1>
+ {% endif %} 
+
+
+{% block content %}
+<main class="form-signin w-100 m-auto">
+    {{ error }}
+    <form method="POST">{% csrf_token %}
+      <h1 class="h3 mb-3 fw-normal">Please login</h1>
+  
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username">
+        <label for="floatingInput">Username</label>
+      </div>
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" >
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+    
+      
+      <button class="btn btn-primary w-100 py-2" type="submit">login</button>
+      
+      <p class="mt-5 mb-3 text-body-secondary">&copy; 2017-2024</p>
+    </form>
+  </main>
+{% endblock content %}
+
