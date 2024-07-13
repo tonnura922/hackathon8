@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from .views import homefunc, usersfunc
+from .views import homefunc,signupfunc, loginfunc, logoutfunc
 
 
 urlpatterns = [
      path('home/',homefunc,name='home'),
      path('users/', usersfunc, name='users'),
+     path('signup/', signupfunc, name='signup'),
+     path('login/', loginfunc, name='login'),
+     path('logout/', logoutfunc, name='logout'),
 ]
