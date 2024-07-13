@@ -22,7 +22,6 @@ from .views import homefunc,signupfunc, loginfunc, logoutfunc, chat_view
 
 urlpatterns = [
      path('home/',homefunc,name='home'),
-     path('login/',loginfunc,name='login'),
      path('users/', usersfunc, name='users'),
      path('signup/', signupfunc, name='signup'),
      path('login/', loginfunc, name='login'),
