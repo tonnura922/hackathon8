@@ -1,11 +1,9 @@
-from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User 
-from .models import UserProfile
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.contrib.auth import authenticate, login, logout
+from .models import UserProfile
 from .models import Chat
 from .forms import ChatForm
 
@@ -26,6 +24,7 @@ def loginfunc(request):
             return render(request,'login.html',{'context':'not login'})
 
     return render(request,'login.html',{'context':'get method'})
+
 def usersfunc(request):
     users = User.objects.all()
     profile = UserProfile.objects.all()
@@ -56,12 +55,9 @@ def logoutfunc(request):
         logout(request)
         return redirect('home')
 
-@login_required
 def chat_view(request, user_id=None):
-    
-        # ログインユーザー以外のユーザー一覧を取得する
     users = User.objects.exclude(id=request.user.id)
-    receiver = User.objects.get(id=user_id)
+    receiver = get_object_or_404(User, id=user_id)
     
     if request.method == 'POST':
         form = ChatForm(request.POST)
@@ -76,8 +72,5 @@ def chat_view(request, user_id=None):
 
     messages = Chat.objects.filter(sender=request.user, receiver=receiver) | Chat.objects.filter(sender=receiver, receiver=request.user)
     messages = messages.order_by('created_at')
-
-
-
 
     return render(request, 'chatpage.html', {'form': form, 'users': users, 'receiver': receiver, 'messages': messages})
