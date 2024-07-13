@@ -13,20 +13,21 @@ def homefunc(request):
     return render(request,'home.html',{})
 
 def loginfunc(request):
-    if request.method == 'post':
-        username = request.POST['userame']
-        email = request.POST['email']
+    if request.method == 'POST':
+        username = request.POST['username']
+        # email = request.POST['email']
         password = request.POST['password']
-        if not username or not email or not password:
+        if not username or not password:
             return render(request,'signup.html', {'error': '全てのフィールドを入力してください'})
-        user = authenticate(request,username=username,password=password,email=email)
+        user = authenticate(request,username=username,password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('users')
         else:
             return render(request,'login.html',{'context':'not login'})
 
     return render(request,'login.html',{'context':'get method'})
+
 def usersfunc(request):
     users = User.objects.all()
     profile = UserProfile.objects.all()
@@ -52,9 +53,6 @@ def signupfunc(request):
             render(request,'signup.html',{})
 
         return render(request,'signup.html',{})
-
-def loginfunc(request):
-    pass
 
 def logoutfunc(request):
         logout(request)
