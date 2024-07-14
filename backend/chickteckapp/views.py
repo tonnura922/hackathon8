@@ -6,6 +6,10 @@ from django.db import IntegrityError
 from .models import UserProfile
 from .models import Chat
 from .forms import ChatForm, UserProfileForm
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Community, Membership
+from .forms import CommunityForm
 
 def homefunc(request):
     return render(request,'home.html',{})
@@ -104,3 +108,33 @@ def chat_view(request, user_id=None):
     messages = messages.order_by('created_at')
 
     return render(request, 'chatpage.html', {'form': form, 'users': users, 'receiver': receiver, 'messages': messages})
+
+
+@login_required
+def create_community(request):
+    if request.method == 'POST':
+        form = CommunityForm(request.POST)
+        if form.is_valid():
+            community = form.save(commit=False)
+            community.creator = request.user
+            community.save()
+            Membership.objects.create(user=request.user, community=community)
+            return redirect('community_detail', pk=community.pk)
+    else:
+        form = CommunityForm()
+    return render(request, 'create_community.html', {'form': form})
+
+def community_list(request):
+    communities = Community.objects.all()
+    return render(request, 'community_list.html', {'communities': communities})
+
+def community_detail(request, pk):
+    community = get_object_or_404(Community, pk=pk)
+    is_member = request.user.is_authenticated and Membership.objects.filter(user=request.user, community=community).exists()
+    return render(request, 'community_detail.html', {'community': community, 'is_member': is_member})
+
+@login_required
+def join_community(request, pk):
+    community = get_object_or_404(Community, pk=pk)
+    Membership.objects.get_or_create(user=request.user, community=community)
+    return redirect('community_detail', pk=community.pk)
