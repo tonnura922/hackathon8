@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 mb-5"> <!-- mb-5 クラスを追加 -->
     {% if user.is_authenticated %}
     <h2>Chat with {{ receiver.username }}</h2>
     <div id="chat-box" class="border p-3 mb-3" style="height: 400px; overflow-y: scroll;">
