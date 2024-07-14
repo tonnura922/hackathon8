@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>プロフィール作成</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">保存する</button>
+</form>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'signup' %}">Signup</a>
+{% endif %}
+
+{% endblock content %}
