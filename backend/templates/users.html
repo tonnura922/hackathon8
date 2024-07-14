@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+
+{% block content %}
 <head>
     <title>User Profiles</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -87,6 +88,5 @@
         {% endfor %}
     </tbody>
 </table>
-
 </body>
-</html>
+{% endblock %}
