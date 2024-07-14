@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Site</title>
-</head>
-<body>
-    <nav>
-        <!-- ユーザーが現在ログインしていれば -->
-        {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}">Logout</a>
-        <!-- ログアウト状態なら -->
-        {% else %}
-            <a href="{% url 'login' %}">Login</a>
-            <a href="{% url 'signup' %}">Signup</a>
-        {% endif %}
-    </nav>
-    {% block content %}
-    {% endblock %}
-</body>
-</html>
+{% block content %}
+<nav>
+    <!-- ユーザーが現在ログインしていれば -->
+    {% if user.is_authenticated %}
+        <!-- <a href="{% url 'logout' %}">Logout</a> -->
+        <h1>Welcome {{ user }}! </h1>
+        <h4>世界中の情報科学を学んでいる人と繋がりましょう！</h4>
+        <ul>
+            <li><a href="{% url 'users' %}">ユーザーを検索 </a></li>
+            <li>ユーザーを検索して名前を選択するとチャット機能が使えます</yu-zawo> </a></li>
+        </ul>
+
+    <!-- ログアウト状態なら -->
+    {% else %}
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Signup</a></li>
+        </ul>
+    {% endif %}
+</nav>
+{% endblock %}
