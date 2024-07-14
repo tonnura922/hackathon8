@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile
+from .models import UserProfile,Community
 
 # Register your models here.
 @admin.register(UserProfile)
@@ -8,3 +8,5 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_filter = ('speak_lang', 'it_lang')
     search_fields = ('user__username', 'user__email', 'bio')
     raw_id_fields = ('user',)  # If you want to use raw_id_fields for ForeignKey
+
+admin.site.register(Community)

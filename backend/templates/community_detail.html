@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ community.name }}</h1>
+  <p>{{ community.description }}</p>
+  <p>Created by: {{ community.creator.username }}</p>
+  <p>Members: {{ community.membership_set.count }}</p>
+  {% if is_member %}
+    <p>You are a member of this community.</p>
+  {% else %}
+    <a href="{% url 'join_community' community.pk %}">Join Community</a>
+  {% endif %}
+{% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Chat, UserProfile
+from .models import Chat, UserProfile,Community
 
 class ChatForm(forms.ModelForm):
     class Meta:
@@ -22,3 +22,8 @@ class UserProfileForm(forms.ModelForm):
             'speak_lang': '話す言語',
             'it_lang': 'プログラミング言語'
         }
+
+class CommunityForm(forms.ModelForm):
+    class Meta:
+        model = Community
+        fields = ['name', 'description']
