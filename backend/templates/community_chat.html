@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">{{ community.name }} - チャット</h2>
 
-<h2>{{ community.name }} - チャット</h2>
+    <div class="card mb-4">
+        <div class="card-body" id="chat-box" style="height: 400px; overflow-y: auto;">
+            {% for message in messages %}
+                <div class="mb-3 d-flex {% if message.sender == user %}justify-content-end{% else %}justify-content-start{% endif %}">
+                    <div class="message-bubble p-2 {% if message.sender == user %}bg-primary text-white{% else %}bg-light{% endif %}" style="max-width: 70%; border-radius: 10px;">
+                        <strong>{{ message.sender.username }}:</strong>
+                        <p class="mb-0">{{ message.message }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
-<div>
-    {% for message in messages %}
-        <p>{{ message.sender.username }}: {{ message.message }}</p>
-    {% endfor %}
+    <form method="post" class="form-inline w-100">
+        {% csrf_token %}
+        <div class="form-group flex-grow-1 mr-2">
+            {{ form.message }}
+        </div>
+        <button type="submit" class="btn btn-primary">送信</button>
+    </form>
 </div>
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">送信</button>
-</form>
-
-{% endblock content %}
+{% endblock %}
