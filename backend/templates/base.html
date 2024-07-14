@@ -21,45 +21,68 @@
             padding: 20px 0;
             text-align: center;
         }
+        .container {
+            max-width: 100%;
+        }
+        @media (min-width: 768px) {
+            .container {
+                max-width: 750px;
+            }
+        }
+        @media (min-width: 992px) {
+            .container {
+                max-width: 970px;
+            }
+        }
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1170px;
+            }
+        }
     </style>
     <title>chickteck</title>
 </head>
 <body>
     <nav class='navbar navbar-expand-sm navbar-dark bg-dark fixed-top'>
         <a class='navbar-brand' href='{% url "home" %}'>chickteck</a>
-        <ul class='navbar-nav mr-auto'>
-            {% if user.is_authenticated %}
-                <li class='nav-item'>
-                    <a href='{% url "users" %}' class='login nav-link'>ユーザ検索</a>
-                </li>
-                <li class='nav-item'>
-                    <a href='{% url "profile_detail" %}' class='login nav-link'>Myページ</a>
-                </li>
-                <li class='nav-item'>
-                    <a href='{% url "community_list" %}' class='login nav-link'>コミュニティを探す</a>
-                </li>
-            {% else %}
-                <li class='nav-item'>
-                    <a href='{% url "login" %}' class='login nav-link'>Login</a>
-                </li>
-            {% endif %}
-        </ul>
-        <ul class='navbar-nav ml-auto'>
-            {% if user.is_authenticated %}
-                <li class='nav-item'>
-                    <span class='navbar-text'>{{ user }} - </span>
-                </li>
-                <li class='nav-item'>
-                    <a href='{% url "logout" %}' class='logout nav-link'>Logout</a>
-                </li>
-            {% endif %}
-        </ul>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class='navbar-nav mr-auto'>
+                {% if user.is_authenticated %}
+                    <li class='nav-item'>
+                        <a href='{% url "users" %}' class='login nav-link'>ユーザ検索</a>
+                    </li>
+                    <li class='nav-item'>
+                        <a href='{% url "profile_detail" %}' class='login nav-link'>Myページ</a>
+                    </li>
+                    <li class='nav-item'>
+                        <a href='{% url "community_list" %}' class='login nav-link'>コミュニティを探す</a>
+                    </li>
+                {% else %}
+                    <li class='nav-item'>
+                        <a href='{% url "login" %}' class='login nav-link'>Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class='navbar-nav ml-auto'>
+                {% if user.is_authenticated %}
+                    <li class='nav-item'>
+                        <span class='navbar-text'>{{ user }} - </span>
+                    </li>
+                    <li class='nav-item'>
+                        <a href='{% url "logout" %}' class='logout nav-link'>Logout</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
     <div class='container mt-4 content'>
         {% block content %}
         {% endblock %}
     </div>
-    <footer class="bg-dark text-white">
+    <footer class="bg-dark text-white mt-auto">
         <p>&copy; 2024 Chickteck. All Rights Reserved.</p>
         <p>
             <a href="{% url 'home' %}" class="text-white">Home</a> |

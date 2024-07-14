@@ -12,15 +12,15 @@
             <p class="card-text"><strong>年齢:</strong> {{ profile.age }}</p>
             <p class="card-text"><strong>話す言語:</strong> {{ profile.get_speak_lang_display }}</p>
             <p class="card-text"><strong>プログラミング言語:</strong> {{ profile.get_it_lang_display }}</p>
-            <a href="{% url 'profile_update' %}" class="btn btn-primary">プロフィールを編集する</a>
+            <a href="{% url 'profile_update' %}" class="btn btn-primary btn-block">プロフィールを編集する</a>
         </div>
     </div>
     {% else %}
     <div class="alert alert-warning" role="alert">
         プロフィールを表示するにはログインが必要です。
     </div>
-    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
-    <a href="{% url 'signup' %}" class="btn btn-secondary">Signup</a>
+    <a href="{% url 'login' %}" class="btn btn-primary btn-block mb-2">Login</a>
+    <a href="{% url 'signup' %}" class="btn btn-secondary btn-block">Signup</a>
     {% endif %}
 </div>
 {% endblock content %}

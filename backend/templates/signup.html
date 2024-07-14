@@ -1,32 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<main class="form-signin w-100 m-auto">
-    {{ error }}
-    <form method="POST">{% csrf_token %}
-      <h1 class="h3 mb-3 fw-normal">Please SignUp</h1>
-  
-      <div class="form-floating">
-        <label for="floatingInput">Username</label>
-        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username">
-        
-      </div>
-      <div class="form-floating">
-        <label for="floatingInput">Email address</label>
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" >
-        
-      </div>
-      <div class="form-floating">
-        <label for="floatingPassword">Password</label>
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-      </div>
-      <style>.form-floating {padding-bottom: 20px;}</style>
-
-      <button class="btn btn-primary w-100 py-2" type="submit">signup</button>
-      <a class="btn btn-primary mt-3" href="{% url 'login' %}" role="button">ログインはこちら</a>
-
-      <p class="mt-5 mb-3 text-body-secondary">&copy; 2017-2024</p>
-    </form>
-  </main>
-
+<div class="container mt-5">
+    <main class="form-signin w-100 m-auto">
+        {{ error }}
+        <form method="POST" class="bg-light p-4 rounded shadow-sm">
+            {% csrf_token %}
+            <h1 class="h3 mb-3 fw-normal text-center">Please SignUp</h1>
+    
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingUsername" placeholder="username" name="username">
+                <label for="floatingUsername">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" name="email">
+                <label for="floatingEmail">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign Up</button>
+            <a class="btn btn-secondary w-100 mt-3" href="{% url 'login' %}" role="button">ログインはこちら</a>
+            <p class="mt-5 mb-3 text-body-secondary text-center">&copy; 2017-2024</p>
+        </form>
+    </main>
+</div>
 {% endblock content %}

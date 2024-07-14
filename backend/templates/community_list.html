@@ -3,22 +3,22 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <h1 class="mb-4">Communities</h1>
         </div>
-        <div class="col-md-6 text-md-right">
+        <div class="col-12 col-md-6 text-md-right text-center">
             <a href="{% url 'create_community' %}" class="btn btn-secondary">コミュニティを新しく作る</a>
         </div>
     </div>
 
     <div class="row">
         {% for community in communities %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'community_detail' community.pk %}">{{ community.name }}</a></h5>
                     <p class="card-text">{{ community.description }}</p>
-                    <a href="{% url 'community_detail' community.pk %}" class="btn btn-primary">詳細を見る</a>
+                    <a href="{% url 'community_detail' community.pk %}" class="btn btn-primary btn-block">詳細を見る</a>
                 </div>
             </div>
         </div>

@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-{% if user.is_authenticated %}
-<h1>プロフィール作成</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">保存する</button>
-</form>
-{% else %}
-<a href="{% url 'login' %}">Login</a>
-<a href="{% url 'signup' %}">Signup</a>
-{% endif %}
-
-{% endblock content %}
+<div class="container mt-5">
+    {% if user.is_authenticated %}
+    <h1 class="mb-4">プロフィール作成</h1>
+    <form method="post" class="bg-light p-4 rounded shadow-sm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary w-100">保存する</button>
+    </form>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        プロフィールを作成するにはログインが必要です。
+    </div>
+    <a href="{% url 'login' %}" class="btn btn-primary w-100 mb-2">Login</a>
+    <a href="{% url 'signup' %}" class="btn btn-secondary w-100">Signup</a>
+    {% endif %}
+</div>
+{% endblock %}
