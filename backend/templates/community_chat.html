@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <h2 class="mb-4">{{ community.name }} - チャット</h2>
 
     <div class="card mb-4">
@@ -9,7 +9,7 @@
             {% for message in messages %}
                 <div class="mb-3 d-flex {% if message.sender == user %}justify-content-end{% else %}justify-content-start{% endif %}">
                     <div class="message-bubble p-2 {% if message.sender == user %}bg-primary text-white{% else %}bg-light{% endif %}" style="max-width: 70%; border-radius: 10px;">
-                        <strong>{{ message.sender.username }}:</strong>
+                        <strong>{{ message.sender.username }}</strong>
                         <p class="mb-0">{{ message.message }}</p>
                     </div>
                 </div>

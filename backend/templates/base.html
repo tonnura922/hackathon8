@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
-    <link rel="stylesheet" href="./style.css">
-    <style>body {padding-top: 80px;}</style>
+    <link rel="stylesheet" href="/path/to/your/style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .content {
+            flex: 1;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
     <title>chickteck</title>
 </head>
 <body>
@@ -13,12 +29,6 @@
         <a class='navbar-brand' href='{% url "home" %}'>chickteck</a>
         <ul class='navbar-nav mr-auto'>
             {% if user.is_authenticated %}
-                <!-- <li class='nav-item'>
-                    <a href='{% url "home" %}' class='login nav-link'>ホーム</a>
-                </li> -->
-                <!-- <li class='nav-item'>
-                    <a href='#' class='login nav-link'>チャットページ</a>
-                </li> -->
                 <li class='nav-item'>
                     <a href='{% url "users" %}' class='login nav-link'>ユーザ検索</a>
                 </li>
@@ -45,9 +55,20 @@
             {% endif %}
         </ul>
     </nav>
-    <div class='container'>
+    <div class='container mt-4 content'>
         {% block content %}
         {% endblock %}
     </div>
+    <footer class="bg-dark text-white">
+        <p>&copy; 2024 Chickteck. All Rights Reserved.</p>
+        <p>
+            <a href="{% url 'home' %}" class="text-white">Home</a> |
+            <a href="{% url 'community_list' %}" class="text-white">Communities</a> |
+            <a href="{% url 'profile_detail' %}" class="text-white">My Profile</a>
+        </p>
+    </footer>
+    <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJImTV7f2PaKj+emHbSr4x2dSLSC7yYt5Kt9J64p5aZtF1gZP' crossorigin='anonymous'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
 </body>
 </html>
