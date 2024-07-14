@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import UserProfile
 from .models import Chat
-from .forms import ChatForm
+from .forms import ChatForm, UserProfileForm
 
 def homefunc(request):
     return render(request,'home.html',{})
@@ -25,9 +25,38 @@ def loginfunc(request):
 
     return render(request,'login.html',{'context':'get method'})
 
+def profile_create_view(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('profile_detail')
+    else:
+        form = UserProfileForm()
+
+    return render(request, 'profile_create.html', {'form': form})
+
+def profile_update_view(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile_detail')
+    else:
+        form = UserProfileForm(instance=profile)
+
+    return render(request, 'profile_update.html', {'form': form})
+
+def profile_detail_view(request):
+    profile = request.user.profile
+    return render(request, 'profile_detail.html', {'profile': profile})
+
 def usersfunc(request):
-    users = User.objects.all()
-    profile = UserProfile.objects.all()
+    users = User.objects.exclude(id=request.user.id)
+    profile = UserProfile.objects.exclude(id=request.user.id)
     # for i in profile:
     #     print(i.bio)
     return render(request,'users.html',{'users':users,'profile':profile})
@@ -43,7 +72,8 @@ def signupfunc(request):
                 return render(request, 'signup.html', {'error': 'このメールアドレスはすでに使用されています'})
             try:
                 user = User.objects.create_user(username, email, password)
-                return render(request,'home.html',{})
+                login(request, user)
+                return redirect('profile_create') #サインアップ後にログインしてプロフィールを作成してもらう
             except IntegrityError:
                 return render(request,'signup.html',{'error':'このユーザーはすでに登録されています'})
         else:

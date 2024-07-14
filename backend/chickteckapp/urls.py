@@ -14,17 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
-from .views import homefunc,loginfunc
-from .views import homefunc, usersfunc
-from .views import homefunc,signupfunc, loginfunc, logoutfunc, chat_view
-
+from django.urls import path
+from .views import homefunc,signupfunc, loginfunc, logoutfunc, chat_view, usersfunc,profile_create_view
+from .views import profile_update_view, profile_detail_view
 
 urlpatterns = [
-     path('home/',homefunc,name='home'),
-     path('users/', usersfunc, name='users'),
-     path('signup/', signupfunc, name='signup'),
-     path('login/', loginfunc, name='login'),
-     path('logout/', logoutfunc, name='logout'),
-     path("<int:user_id>/", chat_view, name="chat"),
+    path('home/',homefunc,name='home'),
+    path('users/', usersfunc, name='users'),
+    path('signup/', signupfunc, name='signup'),
+    path('login/', loginfunc, name='login'),
+    path('logout/', logoutfunc, name='logout'),
+    path("<int:user_id>/", chat_view, name="chat"),
+    path('profile/create/', profile_create_view, name='profile_create'),
+    path('profile/update/', profile_update_view, name='profile_update'),
+    path('profile/detail/', profile_detail_view, name='profile_detail'),
 ]
