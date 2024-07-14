@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>{{ community.name }} - チャット</h2>
+
+<div>
+    {% for message in messages %}
+        <p>{{ message.sender.username }}: {{ message.message }}</p>
+    {% endfor %}
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">送信</button>
+</form>
+
+{% endblock content %}

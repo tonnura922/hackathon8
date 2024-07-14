@@ -10,6 +10,7 @@
             <p class="card-text"><strong>Members:</strong> {{ community.membership_set.count }}</p>
             {% if is_member %}
                 <p class="card-text text-success">You are a member of this community.</p>
+                <a href="{% url 'community_chat' community.pk %}" class="btn btn-prinmary">Let's TALK!</a>
             {% else %}
                 <a href="{% url 'join_community' community.pk %}" class="btn btn-primary">Join Community</a>
             {% endif %}
