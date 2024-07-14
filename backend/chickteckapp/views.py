@@ -1,15 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User 
-from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from .models import UserProfile
-from .models import Chat
-from .forms import ChatForm, UserProfileForm
+from .models import UserProfile,Community, Membership,Chat, CommunityChat
+from .forms import ChatForm, UserProfileForm, CommunityForm, CommunityChatForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Community, Membership
-from .forms import CommunityForm
 
 def homefunc(request):
     return render(request,'home.html',{})
@@ -138,3 +134,20 @@ def join_community(request, pk):
     community = get_object_or_404(Community, pk=pk)
     Membership.objects.get_or_create(user=request.user, community=community)
     return redirect('community_detail', pk=community.pk)
+
+@login_required
+def community_chat(request, pk):
+    community = get_object_or_404(Community, pk=pk)
+    if request.method == 'POST':
+        form = CommunityChatForm(request.POST)
+        if form.is_valid():
+            chat = form.save(commit=False)
+            chat.community = community
+            chat.sender = request.user
+            chat.save()
+            return redirect('community_chat', pk=pk)
+    else:
+        form = CommunityChatForm()
+
+    messages = CommunityChat.objects.filter(community=community)
+    return render(request, 'community_chat.html', {'community': community, 'form': form, 'messages': messages})

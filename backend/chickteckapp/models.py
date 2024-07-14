@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-
 class Chat(models.Model):
     sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
@@ -54,3 +53,12 @@ class Membership(models.Model):
 
     def __str__(self):
         return f'{self.user.username} in {self.community.name}'
+
+class CommunityChat(models.Model):
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, related_name='sent_community_chats', on_delete=models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.sender.username} - {self.community.name} - {self.created_at}"
