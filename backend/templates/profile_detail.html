@@ -1,20 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-
-{% if user.is_authenticated %}
-<body>
-    <h1>プロフィール詳細</h1>
-    <p><strong>ユーザー名:</strong> {{ profile.user.username }}</p>
-    <p><strong>自己紹介:</strong> {{ profile.bio }}</p>
-    <p><strong>年齢:</strong> {{ profile.age }}</p>
-    <p><strong>話す言語:</strong> {{ profile.get_speak_lang_display }}</p>
-    <p><strong>プログラミング言語:</strong> {{ profile.get_it_lang_display }}</p>
-    <a href="{% url 'profile_update' %}">プロフィールを編集する</a>
-</body>
-
-{% else %}
-<a href="{% url 'login' %}">Login</a>
-<a href="{% url 'signup' %}">Signup</a>
-{% endif %}
-
+<div class="container mt-5">
+    {% if user.is_authenticated %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">プロフィール詳細</h1>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>ユーザー名:</strong> {{ profile.user.username }}</p>
+            <p class="card-text"><strong>自己紹介:</strong> {{ profile.bio }}</p>
+            <p class="card-text"><strong>年齢:</strong> {{ profile.age }}</p>
+            <p class="card-text"><strong>話す言語:</strong> {{ profile.get_speak_lang_display }}</p>
+            <p class="card-text"><strong>プログラミング言語:</strong> {{ profile.get_it_lang_display }}</p>
+            <a href="{% url 'profile_update' %}" class="btn btn-primary">プロフィールを編集する</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        プロフィールを表示するにはログインが必要です。
+    </div>
+    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+    <a href="{% url 'signup' %}" class="btn btn-secondary">Signup</a>
+    {% endif %}
+</div>
 {% endblock content %}

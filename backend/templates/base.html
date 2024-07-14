@@ -25,6 +25,9 @@
                 <li class='nav-item'>
                     <a href='{% url "profile_detail" %}' class='login nav-link'>Myページ</a>
                 </li>
+                <li class='nav-item'>
+                    <a href='{% url "community_list" %}' class='login nav-link'>コミュニティを探す</a>
+                </li>
             {% else %}
                 <li class='nav-item'>
                     <a href='{% url "login" %}' class='login nav-link'>Login</a>

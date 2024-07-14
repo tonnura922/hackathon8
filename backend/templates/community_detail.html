@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>{{ community.name }}</h1>
-  <p>{{ community.description }}</p>
-  <p>Created by: {{ community.creator.username }}</p>
-  <p>Members: {{ community.membership_set.count }}</p>
-  {% if is_member %}
-    <p>You are a member of this community.</p>
-  {% else %}
-    <a href="{% url 'join_community' community.pk %}">Join Community</a>
-  {% endif %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{ community.name }}</h1>
+            <p class="card-text">{{ community.description }}</p>
+            <p class="card-text"><strong>Created by:</strong> {{ community.creator.username }}</p>
+            <p class="card-text"><strong>Members:</strong> {{ community.membership_set.count }}</p>
+            {% if is_member %}
+                <p class="card-text text-success">You are a member of this community.</p>
+            {% else %}
+                <a href="{% url 'join_community' community.pk %}" class="btn btn-primary">Join Community</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
